@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, EasyCachingActivity!</string>
+    <string name="app_name">EasyCaching</string>
+    <string name="map">Map</string>
+    <string name="cache">Hide Geocache</string>
+    <string name="statistics">User Statistics</string>
+    <string name="user">Login as User</string>
+    <string name="juri">Login as Juri</string>
+
+</resources>
