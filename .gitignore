@@ -1,7 +1,0 @@
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
-/JavaApplication1/nbproject/private/
