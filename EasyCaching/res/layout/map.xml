@@ -8,6 +8,9 @@
                  android:layout_width="fill_parent"
                  android:layout_height="fill_parent"
                  android:id="@+id/map"
-                 android:apiKey="0NQLpyu_nTFutzZ7XXLEwSy4_S0Cc3mTXT23qJg"
+                 android:apiKey="0NQLpyu_nTFtMFHjgmOjilM_joYwGc08YGEvvdw"
                  />
 </RelativeLayout>
+
+<!--android:apiKey="0NQLpyu_nTFtMFHjgmOjilM_joYwGc08YGEvvdw" desktop  -->
+<!--android:apiKey="0NQLpyu_nTFutzZ7XXLEwSy4_S0Cc3mTXT23qJg" laptop  -->
