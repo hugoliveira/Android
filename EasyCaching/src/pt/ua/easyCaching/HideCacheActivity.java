@@ -2,6 +2,7 @@ package pt.ua.easyCaching;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
@@ -17,7 +18,7 @@ import android.widget.Spinner;
 
 public class HideCacheActivity extends Activity {
 
-	//static Location loc;
+	static Location loc;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -36,9 +37,8 @@ public class HideCacheActivity extends Activity {
 		
 		
 		LocationManager m = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		final Location loc = m.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		
-		/*LocationListener listener = new LocationListener() {
+		LocationListener listener = new LocationListener() {
 			
 			public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
 				// TODO Auto-generated method stub
@@ -60,12 +60,14 @@ public class HideCacheActivity extends Activity {
 				loc =arg0;
 			}
 		};
-		m.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, listener);*/
+		m.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, listener);
 		
 	
 		b.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View arg0) {
+			
+			
 				String name,hint,description;
 				double terrain,difficulty,size,lat,lon;
 				int cache_type,status_type;
@@ -81,23 +83,23 @@ public class HideCacheActivity extends Activity {
 				lat = loc.getLatitude();
 				lon = loc.getLongitude();
 				
+				  
 				SQLiteDatabase db = openOrCreateDatabase("MyDB", MODE_PRIVATE, null);
+				 
+				Cursor c = db.rawQuery("SELECT IDCacheHidden FROM CacheHidden ORDER BY IDCacheHidden DESC LIMIT 1", null);
+				int cacheID,userID;
+				SharedPreferences settings = getSharedPreferences("MYPREFS", 0);
+				userID = settings.getInt("userID", 0);
 				
-				db.execSQL("INSERT INTO CacheHidden VALUES (1,'"+name+"',"+lat+","+lon+","+cache_type+","+status_type+","+terrain+","+difficulty+","+size+",'"+hint+"','"+description+"');");
-				
-				Cursor c = db.rawQuery("SELECT * FROM CacheHidden", null);
-				c.moveToFirst();
-				
-				Log.d("DB", c.getString(c.getColumnIndex("Name")));
-				Log.d("DB", c.getString(c.getColumnIndex("Hint")));
-				Log.d("DB", c.getString(c.getColumnIndex("Descricao")));
-				Log.d("DB", ""+c.getFloat(c.getColumnIndex("Terrain")));
-				Log.d("DB", ""+c.getFloat(c.getColumnIndex("Difficulty")));
-				Log.d("DB", ""+c.getFloat(c.getColumnIndex("CacheSize")));
-				Log.d("DB", ""+c.getInt(c.getColumnIndex("RefIDTipoCache")));
-				Log.d("DB", ""+c.getInt(c.getColumnIndex("RefIDStatusCache")));
-				Log.d("DB", ""+c.getFloat(c.getColumnIndex("Lat")));
-				Log.d("DB", ""+c.getFloat(c.getColumnIndex("Lon")));
+				if(c.getCount() >0)
+				{
+					c.moveToFirst();
+					cacheID =1+ c.getInt(c.getColumnIndex("IDCacheHidden"));
+				}
+				else
+					cacheID=1;
+					
+				db.execSQL("INSERT INTO CacheHidden VALUES ("+cacheID+",'"+name+"',"+lat+","+lon+","+userID+","+cache_type+","+status_type+","+terrain+","+difficulty+","+size+",'"+hint+"','"+description+"');");
 				c.close();
 				db.close();
 			}

@@ -30,6 +30,7 @@
         android:id="@+id/statistics_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/cache_button"
         android:layout_below="@+id/cache_button"
         android:layout_marginTop="72dp"
         android:clickable="true"
