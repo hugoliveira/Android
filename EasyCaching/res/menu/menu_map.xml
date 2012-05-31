@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/sat" android:title="Satellite View" android:icon="@drawable/earth"></item>
+    <item android:id="@+id/traffic" android:title="Traffic View" android:icon="@drawable/boot"></item>
+    
+
+</menu>

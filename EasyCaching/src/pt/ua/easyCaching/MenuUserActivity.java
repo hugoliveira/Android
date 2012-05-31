@@ -17,10 +17,12 @@ public class MenuUserActivity extends Activity implements OnClickListener {
 		Button mapButton = (Button) findViewById(R.id.map_button);
 		Button cacheButton = (Button) findViewById(R.id.cache_button);
 		Button statisticsButton = (Button) findViewById(R.id.statistics_button);
+		Button competitionsButton = (Button) findViewById(R.id.competitions_button);
 		
 		mapButton.setOnClickListener(this);
 		cacheButton.setOnClickListener(this);
 		statisticsButton.setOnClickListener(this);
+		competitionsButton.setOnClickListener(this);
 	}
 
 	public void onClick(View v) {
@@ -33,6 +35,9 @@ public class MenuUserActivity extends Activity implements OnClickListener {
 		
 		else if(v.getId() == R.id.statistics_button)
 			startActivity(new Intent(MenuUserActivity.this, StatisticsActivity.class));
+		
+		else if(v.getId() == R.id.competitions_button)
+			startActivity(new Intent(MenuUserActivity.this, MenuUserCompetitionsActivity.class));
 		
 	}
 

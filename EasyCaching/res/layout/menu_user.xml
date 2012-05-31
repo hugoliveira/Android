@@ -27,12 +27,22 @@
         android:text="@string/cache"	/>
 
     <Button
+        android:id="@+id/competitions_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="41dp"
+        android:clickable="true"
+        android:text="Competitions" />
+
+    <Button
         android:id="@+id/statistics_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/cache_button"
+        android:layout_alignRight="@+id/cache_button"
         android:layout_below="@+id/cache_button"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="60dp"
         android:clickable="true"
         android:gravity="center_vertical"
         android:padding="20sp"

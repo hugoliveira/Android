@@ -2,6 +2,14 @@ package pt.ua.easyCaching;
 
 import java.util.List;
 
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
+import com.google.android.maps.OverlayItem;
+
+import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -12,17 +20,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
-import com.google.android.maps.Overlay;
-import com.google.android.maps.OverlayItem;
+public class MapCompetition extends MapActivity {
 
-import com.google.android.maps.MapView;
-
-
-public class Map extends MapActivity {
-
+	
 	static OverlayItem overlayItem;
 	static MapView view;
 	@Override
@@ -62,8 +62,6 @@ public class Map extends MapActivity {
 				
 				int lat = (int) ( arg0.getLatitude());
 				int lon = (int) ( arg0.getLongitude());
-				Log.d("LAT", ""+lat);
-				Log.d("LON", ""+lon);
 				GeoPoint center = new GeoPoint(lat, lon);
 				controller.setCenter(center);
 				controller.setZoom(7);
@@ -76,11 +74,9 @@ public class Map extends MapActivity {
 				mapOverlays.add(user);
 			}
 		};
-
-
-
-		
 		m.requestLocationUpdates(LocationManager.GPS_PROVIDER, 20000, 0, listener);
+		
+		//1 overlayitem por cache da base de dados
 		
 	}
 	@Override
@@ -112,5 +108,4 @@ public class Map extends MapActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
 }
