@@ -54,19 +54,11 @@ public class LoginActivity extends Activity implements OnClickListener{
     		
 //    		db.execSQL("PRAGMA foreign_keys = ON;");
 //    		db.execSQL("CREATE TABLE IF NOT EXISTS User (IDUser int PRIMARY KEY, Nome nvarchar(50),Password nvarchar(10));");
-//    		db.execSQL("CREATE TABLE IF NOT EXISTS TipoCache (IDTipoCache int PRIMARY KEY, Descricao nvarchar(10))");
-//    		db.execSQL("CREATE TABLE IF NOT EXISTS StatusCache (IDStatusCache int PRIMARY KEY, Descricao nvarchar(10))");
-//    		db.execSQL("CREATE TABLE IF NOT EXISTS CacheHidden (IDCacheHidden int PRIMARY KEY,Name nvarchar(200),Lat float,Lon float,RefIDUser int NOT NULL,RefIDTipoCache int NOT NULL,RefIDStatusCache int NOT NULL,Terrain float,Difficulty float,CacheSize float,Hint nvarchar(100),Descricao nvarchar(200),FOREIGN KEY (RefIDTipoCache) REFERENCES TipoCache(IDTipoCache),FOREIGN KEY (RefIDStatusCache) REFERENCES StatusCache(IDStatusCache),FOREIGN KEY (RefIDUser) REFERENCES User(IDUser));");
-//    		db.execSQL("CREATE TABLE IF NOT EXISTS CacheFound (IDCacheFound int PRIMARY KEY,Name nvarchar(200),Lat float,Lon float,RefIDUser int NOT NULL,RefIDTipoCache int NOT NULL, RefIDStatusCache int NOT NULL, Terrain float,Difficulty float,CacheSize float,Hint nvarchar(100),Descricao nvarchar(200),FOREIGN KEY (RefIDTipoCache) REFERENCES TipoCache(IDTipoCache),FOREIGN KEY (RefIDStatusCache) REFERENCES StatusCache(IDStatusCache),FOREIGN KEY (RefIDUser) REFERENCES User(IDUser));");
+//    		db.execSQL("CREATE TABLE IF NOT EXISTS CacheHidden (IDCacheHidden int PRIMARY KEY,Name nvarchar(200),Lat float,Lon float,RefIDUser int NOT NULL,Terrain float,Difficulty float,CacheSize float,Hint nvarchar(100),Descricao nvarchar(200),FOREIGN KEY (RefIDUser) REFERENCES User(IDUser));");
+//    		db.execSQL("CREATE TABLE IF NOT EXISTS CacheFound (IDCacheFound int PRIMARY KEY,Name nvarchar(200),Lat float,Lon float,RefIDUser int NOT NULL,Terrain float,Difficulty float,CacheSize float,Hint nvarchar(100),Descricao nvarchar(200),FOREIGN KEY (RefIDUser) REFERENCES User(IDUser));");
 //    				
-//    		db.execSQL("INSERT INTO TipoCache VALUES (1,'Traditional Cache')");
-//    		db.execSQL("INSERT INTO TipoCache VALUES (2,'Multi-Cache')");
-//    		db.execSQL("INSERT INTO TipoCache VALUES (3,'Unknown Cache')");
-//    		db.execSQL("INSERT INTO TipoCache VALUES (4,'Virtual Cache')");
-//    				
-//    		db.execSQL("INSERT INTO StatusCache VALUES (1,'Active')");
-//    		db.execSQL("INSERT INTO StatusCache VALUES (2,'Inactive')");
-//    		db.execSQL("INSERT INTO StatusCache VALUES (3,'Archived')");
+
+    				
     		Cursor c;
     		c = db.rawQuery("SELECT * FROM CacheHidden", null);
     		c.moveToFirst();
@@ -81,8 +73,6 @@ public class LoginActivity extends Activity implements OnClickListener{
     			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Terrain")));
     			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Difficulty")));
     			Log.d("DB", ""+c.getFloat(c.getColumnIndex("CacheSize")));
-    			Log.d("DB", ""+c.getInt(c.getColumnIndex("RefIDTipoCache")));
-    			Log.d("DB", ""+c.getInt(c.getColumnIndex("RefIDStatusCache")));
     			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Lat")));
     			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Lon")));
     			
@@ -144,22 +134,14 @@ public class LoginActivity extends Activity implements OnClickListener{
     		toast.setGravity(Gravity.BOTTOM, 0, 0);
     		toast.show();
     	}
-    	
-    	else if(v.getId() == R.id.login_juri && valid)
+    	else
     	{
-    		toast = Toast.makeText(LoginActivity.this, "Welcome "+username.getEditableText().toString()+"!", 2000);
+    		toast = Toast.makeText(LoginActivity.this, "Welcome juri!", 2000);
     		toast.setGravity(Gravity.CENTER, 0, 0);
     		toast.show();
-    		editor.putInt("userID", userID);
-    		editor.commit();
     		startActivity(new Intent(LoginActivity.this, MenuJuriActivity.class));
     	}
-    	else if(v.getId() == R.id.login_juri && !valid)
-    	{
-    		toast = Toast.makeText(LoginActivity.this, "Username or Password incorrect!", 2000);
-    		toast.setGravity(Gravity.BOTTOM, 0, 0);
-    		toast.show();
-    	}
+    	
     	
     	
     	db.close();

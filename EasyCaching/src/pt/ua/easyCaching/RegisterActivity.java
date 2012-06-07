@@ -1,6 +1,7 @@
 package pt.ua.easyCaching;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -32,13 +33,13 @@ public class RegisterActivity extends Activity {
 				String p = newPass.getText().toString();
 				Toast toast;
 				SQLiteDatabase db = openOrCreateDatabase("MyDB", MODE_PRIVATE, null);
-				Log.d("DEBUG", "1");
+				
 				Cursor c = db.rawQuery("SELECT * FROM User WHERE Nome='"+u+"'", null);
-				Log.d("DEBUG", "2");
+				
 				
 				if(c.getCount() >0)
 				{
-					Log.d("DEBUG", "3");
+					
 					toast = Toast.makeText(RegisterActivity.this, "Username already taken!", 2000);
 					toast.setGravity(Gravity.BOTTOM, 0, 0);
 					toast.show();
@@ -47,20 +48,20 @@ public class RegisterActivity extends Activity {
 				}
 				else
 				{
-					Log.d("DEBUG", "4");
+					
 					c = db.rawQuery("SELECT IDUser FROM User ORDER BY IDUser DESC LIMIT 1", null);
-					Log.d("DEBUG", "5");
+					
 					int id;
 					
 					if(c.getCount() >0)
 					{
 						c.moveToFirst();
 						id =1+ c.getInt(c.getColumnIndex("IDUser"));
-						Log.d("DEBUG", "6");
+						
 					}
 					else
 						id=1;
-					Log.d("DEBUG", "7");
+					
 					db.execSQL("INSERT INTO User VALUES ("+id+",'"+u+"','"+p+"');");
 					
 					toast = Toast.makeText(RegisterActivity.this, "Registado com sucesso!", 2000);
@@ -80,9 +81,13 @@ public class RegisterActivity extends Activity {
 						c.moveToNext();
 					}
 					
+					//ConnectWebService.insertUser(u);
 				}
 				c.close();
 				db.close();
+				
+				
+				startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
 			}
 		});
 	}

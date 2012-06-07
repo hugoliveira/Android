@@ -5,28 +5,6 @@
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/map_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"
-        android:clickable="true"
-        android:padding="20sp"
-        android:text="@string/map" />
-
-    <Button
-        android:id="@+id/cache_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/map_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"
-        android:clickable="true"
-        android:padding="20sp"
-        android:text="@string/cache"	/>
-
-    <Button
         android:id="@+id/competitions_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,18 +12,53 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="41dp"
         android:clickable="true"
-        android:text="Competitions" />
+        android:text="Competitions"
+        android:width="200dp" />
 
     <Button
         android:id="@+id/statistics_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/cache_button"
-        android:layout_below="@+id/cache_button"
-        android:layout_marginTop="60dp"
+        android:layout_above="@+id/competitions_button"
+        android:layout_alignLeft="@+id/competitions_button"
+        android:layout_marginBottom="39dp"
         android:clickable="true"
-        android:gravity="center_vertical"
         android:padding="20sp"
-        android:text="@string/statistics" />
+        android:text="@string/statistics"
+        android:width="200dp" />
+
+    <Button
+        android:id="@+id/cache_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/statistics_button"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+        android:padding="20sp"
+        android:text="@string/cache"
+        android:width="200dp" />
+
+    <Button
+        android:id="@+id/twitter_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cache_button"
+        android:layout_alignLeft="@+id/cache_button"
+        android:layout_marginBottom="38dp"
+        android:clickable="true"
+        android:text="Twitter"
+        android:width="200dp" />
+
+    <Button
+        android:id="@+id/map_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/twitter_button"
+        android:layout_alignLeft="@+id/twitter_button"
+        android:layout_marginBottom="36dp"
+        android:clickable="true"
+        android:padding="20sp"
+        android:text="@string/map"
+        android:width="200dp" />
 
 </RelativeLayout>

@@ -19,40 +19,42 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/userR"
+        android:layout_marginTop="38dp"
         android:text="New Password"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
+    <EditText
+        android:id="@+id/editText2R"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/passR"
+        android:layout_alignBottom="@+id/passR"
+        android:layout_alignLeft="@+id/editText1R"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="textPassword" />
+
     <EditText
         android:id="@+id/editText1R"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/userR"
         android:layout_alignBottom="@+id/userR"
-        android:layout_alignTop="@+id/userR"
-        android:layout_marginLeft="34dp"
+        android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/userR"
         android:ems="10" >
 
         <requestFocus />
     </EditText>
-
-    <EditText
-        android:id="@+id/editText2R"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/passR"
-        android:layout_alignLeft="@+id/editText1R"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/passR"
-        android:ems="10"
-        android:inputType="textPassword" />
-
+
     <Button
         android:id="@+id/buttonR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText2R"
-        android:layout_marginTop="78dp"
-        android:layout_toRightOf="@+id/userR"
-        android:text="Register" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="84dp"
+        android:text="Register"
+        android:width="200dp" />
 
 </RelativeLayout>

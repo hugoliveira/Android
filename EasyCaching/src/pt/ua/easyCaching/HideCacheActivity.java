@@ -2,6 +2,7 @@ package pt.ua.easyCaching;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class HideCacheActivity extends Activity {
 
@@ -25,15 +27,18 @@ public class HideCacheActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.hide_cache);
 		
+		
+		final String previous = getIntent().getExtras().getString("previous");
+		
 		Button b = (Button) findViewById(R.id.button1);
-		final EditText e1 = (EditText) findViewById(R.id.editText1);
+		final EditText e1 = (EditText) findViewById(R.id.editText7);
 		final EditText e2 = (EditText) findViewById(R.id.editText2);
 		final EditText e3 = (EditText) findViewById(R.id.editText3);
 		final EditText e4 = (EditText) findViewById(R.id.editText4);
 		final EditText e5 = (EditText) findViewById(R.id.editText5);
 		final EditText e6 = (EditText) findViewById(R.id.editText6);
-		final Spinner t1 = (Spinner) findViewById(R.id.tipos_cache);
-		final Spinner t2 = (Spinner) findViewById(R.id.tipos_status);
+		final EditText e7 = (EditText) findViewById(R.id.competition_id);
+		
 		
 		
 		LocationManager m = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -70,7 +75,7 @@ public class HideCacheActivity extends Activity {
 			
 				String name,hint,description;
 				double terrain,difficulty,size,lat,lon;
-				int cache_type,status_type;
+				int competition;
 				
 				name = e1.getEditableText().toString();
 				hint = e2.getEditableText().toString();
@@ -78,30 +83,44 @@ public class HideCacheActivity extends Activity {
 				terrain = Double.parseDouble(e4.getEditableText().toString());
 				difficulty = Double.parseDouble(e5.getEditableText().toString());
 				size = Double.parseDouble(e6.getEditableText().toString());
-				cache_type = 1+ t1.getSelectedItemPosition();
-				status_type = 1+ t2.getSelectedItemPosition();
 				lat = loc.getLatitude();
 				lon = loc.getLongitude();
+				competition = Integer.parseInt(e7.getText().toString());
 				
 				  
 				SQLiteDatabase db = openOrCreateDatabase("MyDB", MODE_PRIVATE, null);
 				 
 				Cursor c = db.rawQuery("SELECT IDCacheHidden FROM CacheHidden ORDER BY IDCacheHidden DESC LIMIT 1", null);
 				int cacheID,userID;
-				SharedPreferences settings = getSharedPreferences("MYPREFS", 0);
-				userID = settings.getInt("userID", 0);
 				
-				if(c.getCount() >0)
+				if(previous.equals("user"))
 				{
-					c.moveToFirst();
-					cacheID =1+ c.getInt(c.getColumnIndex("IDCacheHidden"));
+					SharedPreferences settings = getSharedPreferences("MYPREFS", 0);
+					userID = settings.getInt("userID", 0);
+					
+					if(c.getCount() >0)
+					{
+						c.moveToFirst();
+						cacheID =1+ c.getInt(c.getColumnIndex("IDCacheHidden"));
+					}
+					else
+						cacheID=1;
+					
+					db.execSQL("INSERT INTO CacheHidden VALUES ("+cacheID+",'"+name+"',"+lat+","+lon+","+userID+","+terrain+","+difficulty+","+size+",'"+hint+"','"+description+"');");
 				}
 				else
-					cacheID=1;
-					
-				db.execSQL("INSERT INTO CacheHidden VALUES ("+cacheID+",'"+name+"',"+lat+","+lon+","+userID+","+cache_type+","+status_type+","+terrain+","+difficulty+","+size+",'"+hint+"','"+description+"');");
+				{
+					userID = 13;
+				}
 				c.close();
 				db.close();
+				
+				//ConnectWebService.createCache(name, description, hint, terrain, difficulty, size, competition, userID, lat, lon);
+				
+				if(previous.equals("user"))
+					startActivity(new Intent(HideCacheActivity.this, MenuUserActivity.class));
+				else if(previous.equals("juri"))
+					startActivity(new Intent(HideCacheActivity.this, MenuJuriActivity.class));
 			}
 		});
 		

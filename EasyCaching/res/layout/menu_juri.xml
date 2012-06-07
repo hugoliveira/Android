@@ -2,6 +2,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+
+    <Button
+        android:id="@+id/create_competition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="82dp"
+        android:text="Create Competition" android:clickable="true" android:width="200dp"/>
+
+    <Button
+        android:id="@+id/competition_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="146dp"
+        android:clickable="true"
+        android:text="View Competition" android:width="200dp"/>
+
+    <Button
+        android:id="@+id/add_caches"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/create_competition"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="67dp"
+        android:text="Add caches to competition" android:clickable="true" android:width="200dp"/>
 
 </RelativeLayout>

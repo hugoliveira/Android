@@ -28,7 +28,10 @@
         <activity android:name=".StatisticsActivity" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <activity android:name=".RegisterActivity" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
         <activity android:name=".TwitterActivity" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
-        <activity android:name=".MenuUserCompetitionsActivity" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+        <activity android:name=".ViewCompetitionsActivity" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+        <activity android:name=".MapCompetition" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+        <activity android:name=".CreateCompetitionActivity" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
+        <activity android:name=".ViewCachesActivity" android:theme="@android:style/Theme.Light.NoTitleBar"></activity>
     </application>
 
 </manifest>
