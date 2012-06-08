@@ -3,6 +3,10 @@ package pt.ua.easyCaching;
 import java.util.ArrayList;
 import java.util.List;
 
+import webService_driver.getCaches;
+import webService_driver.getUsers;
+import webService_driver.insert;
+
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
@@ -10,6 +14,8 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
+import Entities.Cache;
+import Entities.User;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -34,9 +40,9 @@ public class MapCompetition extends MapActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.map);
+		setContentView(R.layout.map_competition);
 		
-		view = (MapView) findViewById(R.id.map);
+		view = (MapView) findViewById(R.id.map_competition);
 		view.setBuiltInZoomControls(true);
 		
 		int competitionID = getIntent().getExtras().getInt("idCompetition");
@@ -49,7 +55,7 @@ public class MapCompetition extends MapActivity {
 		final Overlays userC = new Overlays(this.getResources().getDrawable(R.drawable.games), this);
 		final Overlays caches = new Overlays(this.getResources().getDrawable(R.drawable.map_pin),this);
 		GeoPoint p;
-		ArrayList<Cache> list = ConnectWebService.getCache(competitionID);
+		ArrayList<Cache> list = getCaches.getCache(competitionID);
 		
 		for(int i=0;i<list.size();i++)
 		{
@@ -84,8 +90,8 @@ public class MapCompetition extends MapActivity {
 			public void onLocationChanged(Location arg0) {
 				
 				
-				int lat = (int) ( arg0.getLatitude());
-				int lon = (int) ( arg0.getLongitude());
+				int lat = (int) ( arg0.getLatitude() * 1E6);
+				int lon = (int) ( arg0.getLongitude() * 1E6);
 				GeoPoint center = new GeoPoint(lat, lon);
 				controller.setCenter(center);
 				controller.setZoom(7);
@@ -97,7 +103,8 @@ public class MapCompetition extends MapActivity {
 				user.addOverlay(overlayItem);
 				mapOverlays.add(user);
 				Log.d("coords", "1");
-				ConnectWebService.updateCoordenadaByUserID(userID, arg0.getLatitude(), arg0.getLongitude());
+				
+				insert.updateCoordenadaByUserID(userID, arg0.getLatitude(), arg0.getLongitude());
 				Log.d("coords", "2");
 			}
 		};
@@ -107,7 +114,7 @@ public class MapCompetition extends MapActivity {
 		else if(previous.equals("juri"))
 		{
 			
-				ArrayList<User> users = ConnectWebService.getUserbyComp(competitionID);
+				ArrayList<User> users = getUsers.getUserbyComp(competitionID);
 				Log.d("USERS", users.size()+" users");
 				for(int i=0;i<users.size();i++)
 				{
@@ -130,7 +137,7 @@ public class MapCompetition extends MapActivity {
 						
 						if(latU == latC && lonU == lonC)
 						{
-							Toast toast = Toast.makeText(MapCompetition.this, users.get(j).getUsername()+" has found a cache!", 2000);
+							Toast toast = Toast.makeText(MapCompetition.this, users.get(j).getUserName()+" has found a cache!", 2000);
 				    		toast.setGravity(Gravity.CENTER, 0, 0);
 				    		toast.show();
 						}

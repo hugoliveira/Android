@@ -2,6 +2,9 @@ package pt.ua.easyCaching;
 
 import java.util.ArrayList;
 
+import webService_driver.getCompetitions;
+
+import Entities.Competition;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -24,14 +27,14 @@ public class ViewCompetitionsActivity extends ListActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
-		ArrayList<Competition> list = ConnectWebService.getCompetition();
+		ArrayList<Competition> list = getCompetitions.getCompetition();
 		final int[] competition_id= new int[list.size()];
 	
 		String[] competition_name = new String[list.size()];
 		for(int i=0;i<list.size();i++)
 		{
-			competition_name[i] = list.get(i).getNome();
-			competition_id[i] = list.get(i).getIdcompeticao();
+			competition_name[i] = list.get(i).getName();
+			competition_id[i] = list.get(i).getId();
 		}
 		final String previous = getIntent().getExtras().getString("previous");
 		this.setListAdapter(new ArrayAdapter<String>(this, R.layout.menu_user_competition, competition_name));

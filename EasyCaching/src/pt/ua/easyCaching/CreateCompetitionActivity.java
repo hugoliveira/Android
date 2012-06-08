@@ -16,23 +16,23 @@ public class CreateCompetitionActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.create_competition);
-		
-		final EditText name = (EditText) findViewById(R.id.c_name);
-		final EditText place = (EditText) findViewById(R.id.place);
-		final DatePicker d = (DatePicker) findViewById(R.id.datePicker1);
-		
-		Button b = (Button) findViewById(R.id.register_competition_button);
-		
-		b.setOnClickListener(new OnClickListener() {
-			
-			public void onClick(View arg0) {
-				String date = d.getYear()+"-"+d.getMonth()+"-"+d.getDayOfMonth();
-				ConnectWebService.createComp(name.getText().toString(),date , place.getText().toString());
-				
-				startActivity(new Intent(CreateCompetitionActivity.this, MenuJuriActivity.class));
-			}
-		});
+//		setContentView(R.layout.create_competition);
+//		
+//		final EditText name = (EditText) findViewById(R.id.c_name);
+//		final EditText place = (EditText) findViewById(R.id.place);
+//		final DatePicker d = (DatePicker) findViewById(R.id.datePicker1);
+//		
+//		Button b = (Button) findViewById(R.id.register_competition_button);
+//		
+//		b.setOnClickListener(new OnClickListener() {
+//			
+//			public void onClick(View arg0) {
+//				String date = d.getYear()+"-"+d.getMonth()+"-"+d.getDayOfMonth();
+//				ConnectWebService.createComp(name.getText().toString(),date , place.getText().toString());
+//				
+//				startActivity(new Intent(CreateCompetitionActivity.this, MenuJuriActivity.class));
+//			}
+//		});
 	}
 
 }

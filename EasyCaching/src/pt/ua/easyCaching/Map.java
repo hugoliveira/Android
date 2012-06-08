@@ -3,6 +3,8 @@ package pt.ua.easyCaching;
 import java.util.ArrayList;
 import java.util.List;
 
+import webService_driver.getCaches;
+
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,6 +23,7 @@ import com.google.android.maps.OverlayItem;
 
 import com.google.android.maps.MapView;
 
+import Entities.Cache;
 
 public class Map extends MapActivity {
 
@@ -44,7 +47,8 @@ public class Map extends MapActivity {
 		
 		
 		GeoPoint p;
-		ArrayList<Cache> list = ConnectWebService.getCache(1);
+
+		ArrayList<Cache> list = getCaches.getCache(1);
 		
 		for(int i=0;i<list.size();i++)
 		{
@@ -73,8 +77,8 @@ public class Map extends MapActivity {
 			public void onLocationChanged(Location arg0) {
 				
 				
-				int lat = (int) ( arg0.getLatitude());
-				int lon = (int) ( arg0.getLongitude());
+				int lat = (int) ( arg0.getLatitude() * 1E6);
+				int lon = (int) ( arg0.getLongitude() * 1E6);
 				GeoPoint center = new GeoPoint(lat, lon);
 				controller.setCenter(center);
 				controller.setZoom(7);

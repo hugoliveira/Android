@@ -52,47 +52,47 @@ public class LoginActivity extends Activity implements OnClickListener{
     	{
     		SQLiteDatabase db = openOrCreateDatabase("MyDB", MODE_PRIVATE, null);
     		
-//    		db.execSQL("PRAGMA foreign_keys = ON;");
-//    		db.execSQL("CREATE TABLE IF NOT EXISTS User (IDUser int PRIMARY KEY, Nome nvarchar(50),Password nvarchar(10));");
-//    		db.execSQL("CREATE TABLE IF NOT EXISTS CacheHidden (IDCacheHidden int PRIMARY KEY,Name nvarchar(200),Lat float,Lon float,RefIDUser int NOT NULL,Terrain float,Difficulty float,CacheSize float,Hint nvarchar(100),Descricao nvarchar(200),FOREIGN KEY (RefIDUser) REFERENCES User(IDUser));");
-//    		db.execSQL("CREATE TABLE IF NOT EXISTS CacheFound (IDCacheFound int PRIMARY KEY,Name nvarchar(200),Lat float,Lon float,RefIDUser int NOT NULL,Terrain float,Difficulty float,CacheSize float,Hint nvarchar(100),Descricao nvarchar(200),FOREIGN KEY (RefIDUser) REFERENCES User(IDUser));");
-//    				
+    		db.execSQL("PRAGMA foreign_keys = ON;");
+    		db.execSQL("CREATE TABLE IF NOT EXISTS User (IDUser int PRIMARY KEY, Nome nvarchar(50),Password nvarchar(10));");
+    		db.execSQL("CREATE TABLE IF NOT EXISTS CacheHidden (IDCacheHidden int PRIMARY KEY,Name nvarchar(200),Lat float,Lon float,RefIDUser int NOT NULL,Terrain float,Difficulty float,CacheSize float,Hint nvarchar(100),Descricao nvarchar(200),FOREIGN KEY (RefIDUser) REFERENCES User(IDUser));");
+    		db.execSQL("CREATE TABLE IF NOT EXISTS CacheFound (IDCacheFound int PRIMARY KEY,Name nvarchar(200),Lat float,Lon float,RefIDUser int NOT NULL,Terrain float,Difficulty float,CacheSize float,Hint nvarchar(100),Descricao nvarchar(200),FOREIGN KEY (RefIDUser) REFERENCES User(IDUser));");
+    				
 
     				
-    		Cursor c;
-    		c = db.rawQuery("SELECT * FROM CacheHidden", null);
-    		c.moveToFirst();
-    		int j=1;
-    		while(j<=c.getCount())
-    		{
-    			Log.d("ID", ""+c.getInt(c.getColumnIndex("IDCacheHidden")));
-    			Log.d("UserID", ""+c.getInt(c.getColumnIndex("RefIDUser")));
-    			Log.d("DB", c.getString(c.getColumnIndex("Name")));
-    			Log.d("DB", c.getString(c.getColumnIndex("Hint")));
-    			Log.d("DB", c.getString(c.getColumnIndex("Descricao")));
-    			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Terrain")));
-    			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Difficulty")));
-    			Log.d("DB", ""+c.getFloat(c.getColumnIndex("CacheSize")));
-    			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Lat")));
-    			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Lon")));
-    			
-    			j++;
-    			c.moveToNext();
-    		}
-    		
-    		c = db.rawQuery("SELECT * FROM User", null);
-    		c.moveToFirst();
-    		j=1;
-    		while(j<=c.getCount())
-    		{
-    			Log.d("ID", ""+c.getInt(c.getColumnIndex("IDUser")));
-    			Log.d("ID", c.getString(c.getColumnIndex("Nome")));
-    			Log.d("ID", c.getString(c.getColumnIndex("Password")));
-    			j++;
-    			c.moveToNext();
-    		}
-    		c.close();
-    		db.close();
+//    		Cursor c;
+//    		c = db.rawQuery("SELECT * FROM CacheHidden", null);
+//    		c.moveToFirst();
+//    		int j=1;
+//    		while(j<=c.getCount())
+//    		{
+//    			Log.d("ID", ""+c.getInt(c.getColumnIndex("IDCacheHidden")));
+//    			Log.d("UserID", ""+c.getInt(c.getColumnIndex("RefIDUser")));
+//    			Log.d("DB", c.getString(c.getColumnIndex("Name")));
+//    			Log.d("DB", c.getString(c.getColumnIndex("Hint")));
+//    			Log.d("DB", c.getString(c.getColumnIndex("Descricao")));
+//    			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Terrain")));
+//    			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Difficulty")));
+//    			Log.d("DB", ""+c.getFloat(c.getColumnIndex("CacheSize")));
+//    			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Lat")));
+//    			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Lon")));
+//    			
+//    			j++;
+//    			c.moveToNext();
+//    		}
+//    		
+//    		c = db.rawQuery("SELECT * FROM User", null);
+//    		c.moveToFirst();
+//    		j=1;
+//    		while(j<=c.getCount())
+//    		{
+//    			Log.d("ID", ""+c.getInt(c.getColumnIndex("IDUser")));
+//    			Log.d("ID", c.getString(c.getColumnIndex("Nome")));
+//    			Log.d("ID", c.getString(c.getColumnIndex("Password")));
+//    			j++;
+//    			c.moveToNext();
+//    		}
+//    		c.close();
+//    		db.close();
     	}
     	return super.onOptionsItemSelected(item);
     }
