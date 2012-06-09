@@ -38,6 +38,15 @@ public void removeUserOverlay() {
 	    populate();
 	}
 
+public void removeAllOverlays()
+{
+	for(int i=mOverlays.size()-1;i>=0;i-- )
+	{
+		mOverlays.remove(i);
+		populate();
+	}
+}
+
 	@Override
 	public int size() {
 	  return mOverlays.size();

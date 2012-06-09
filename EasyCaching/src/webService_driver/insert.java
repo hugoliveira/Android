@@ -9,7 +9,7 @@ public class insert {
 	private static final String NAMESPACE = "http://insert_update/"; 
 	public static void  createComp(String name, String date, String local) {
 		{
-			final String URL = URLs.URL+"NewCompetition";
+			final String URL = URLs.URL+"insertCompetition";
 			final String METHOD_NAME = "putNewCompetition";
 
 			SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
@@ -38,7 +38,7 @@ public class insert {
 			String hint, double d, double f, double g, int IdCompeticao,
 			int IDUser, double h, double i) {
 		{
-			final String URL = URLs.URL+"NewCache";
+			final String URL = URLs.URL+"insertCache";
 			final String METHOD_NAME = "putNewCacheTraditional";
 
 			SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
@@ -73,7 +73,7 @@ public class insert {
 
 	public static void insertUserCompetition(int IDUser, int IDCompetition) {
 
-		final String URL = URLs.URL+"NewCompetition";
+		final String URL = URLs.URL+"insertCompetition";
 		final String METHOD_NAME = "putUserCompetition";
 
 		SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
@@ -97,7 +97,7 @@ public class insert {
 
 	public static void insertCacheFound(int IdUser, int idCache) {
 
-		final String URL = URLs.URL+"cacheFound";
+		final String URL = URLs.URL+"insertCacheFound";
 		final String METHOD_NAME = "putFoundCache";
 
 		SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
@@ -122,14 +122,14 @@ public class insert {
 	public static void updateCoordenadaByUserID(int idUser, double d, double f) {
 
 	
-		final String URL = URLs.URL+"NewCoordenadas";
+		final String URL = URLs.URL+"insertCoordenate";
 		final String METHOD_NAME = "updateCoordenadaByUserID";
 
 		SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 
 		request.addProperty("idUser", idUser);
-		request.addProperty("longitude", Double.toString(d));
-		request.addProperty("latitude", Double.toString(f));
+		request.addProperty("latitude", Double.toString(d));
+		request.addProperty("longitude", Double.toString(f));
 
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 				SoapEnvelope.VER11);
@@ -147,7 +147,7 @@ public class insert {
 
 	public static void insertUser(String username) {
 
-		final String URL = URLs.URL+"NewUser";
+		final String URL = URLs.URL+"insertUser";
 		final String METHOD_NAME = "putUser";
 
 		SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);

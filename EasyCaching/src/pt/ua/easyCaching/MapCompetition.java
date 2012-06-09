@@ -2,6 +2,8 @@ package pt.ua.easyCaching;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import webService_driver.getCaches;
 import webService_driver.getUsers;
@@ -24,6 +26,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -36,16 +39,18 @@ public class MapCompetition extends MapActivity {
 	
 	static OverlayItem overlayItem;
 	static MapView view;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.map_competition);
 		
+		final Context context = MapCompetition.this;
 		view = (MapView) findViewById(R.id.map_competition);
 		view.setBuiltInZoomControls(true);
 		
-		int competitionID = getIntent().getExtras().getInt("idCompetition");
+		final int competitionID = getIntent().getExtras().getInt("idCompetition");
 		String previous = getIntent().getExtras().getString("previous");
 		
 		SharedPreferences settings = getSharedPreferences("MYPREFS", 0);
@@ -55,7 +60,7 @@ public class MapCompetition extends MapActivity {
 		final Overlays userC = new Overlays(this.getResources().getDrawable(R.drawable.games), this);
 		final Overlays caches = new Overlays(this.getResources().getDrawable(R.drawable.map_pin),this);
 		GeoPoint p;
-		ArrayList<Cache> list = getCaches.getCache(competitionID);
+		final ArrayList<Cache> list = getCaches.getCache(competitionID);
 		
 		for(int i=0;i<list.size();i++)
 		{
@@ -97,61 +102,118 @@ public class MapCompetition extends MapActivity {
 				controller.setZoom(7);
 				overlayItem = new OverlayItem(center, "", "");
 				
-				if(user.size() !=0)	
+				if(user.size() >0)	
+				{
 					user.removeUserOverlay();
+					mapOverlays.remove(1);
+				}
+					
 					
 				user.addOverlay(overlayItem);
 				mapOverlays.add(user);
-				Log.d("coords", "1");
+		
 				
 				insert.updateCoordenadaByUserID(userID, arg0.getLatitude(), arg0.getLongitude());
-				Log.d("coords", "2");
+				
+				for(int i=0;i<list.size();i++)
+				{
+					
+					int latC = (int) (list.get(i).getLatitude() * 1E6);
+					int lonC = (int) (list.get(i).getLongitude() * 1E6);
+					
+					
+					if(lat == latC && lon == lonC)
+					{
+						
+						
+						Runnable maketoast = new Runnable() {
+							
+							public void run() {
+								
+								Toast.makeText(context, "You have found a cache!", 5000).show();
+							}
+						};
+						
+						runOnUiThread(maketoast);
+					}
+				}
+		
 			}
 		};
 			m.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, listener);
+			
+			
+			
 			
 		}
 		else if(previous.equals("juri"))
 		{
 			
-				ArrayList<User> users = getUsers.getUserbyComp(competitionID);
-				Log.d("USERS", users.size()+" users");
-				for(int i=0;i<users.size();i++)
-				{
+				new Timer().schedule(new TimerTask(){
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
 					
-					p = new GeoPoint((int) (users.get(i).getLatitude()* 1E6),(int) (users.get(i).getLongitude()* 1E6));
-					overlayItem = new OverlayItem(p,"","");
-					userC.addOverlay(overlayItem);
-					Log.d("USERS", users.size()+i+" x");
-				}
-				mapOverlays.add(userC);
-				
-				for(int j=0;j<users.size();j++)
-				{
-					for(int k=0;k<list.size();k++)
-					{
-						int latU = (int) (users.get(j).getLatitude() * 1E6);
-						int lonU = (int) (users.get(j).getLongitude() * 1E6);
-						int latC = (int) (list.get(k).getLatitude() * 1E6);
-						int lonC = (int) (list.get(k).getLongitude() * 1E6);
+						final ArrayList<User> users = getUsers.getUserbyComp(competitionID);
 						
-						if(latU == latC && lonU == lonC)
+						if(userC.size() > 0)
 						{
-							Toast toast = Toast.makeText(MapCompetition.this, users.get(j).getUserName()+" has found a cache!", 2000);
-				    		toast.setGravity(Gravity.CENTER, 0, 0);
-				    		toast.show();
+							userC.removeAllOverlays();
+							mapOverlays.remove(1);
 						}
-					}
+							
+							
+							
+							
+							for(int i=0;i<users.size();i++)
+							{
+								
+								GeoPoint po = new GeoPoint((int) (users.get(i).getLatitude()* 1E6),(int) (users.get(i).getLongitude()* 1E6));
+								overlayItem = new OverlayItem(po,users.get(i).getUserName(),"");
+								userC.addOverlay(overlayItem);
+							}
+							mapOverlays.add(userC);
+							
+							view.postInvalidate();
+							
+							for(int j=0;j<users.size();j++)
+							{
+								for(int k=0;k<list.size();k++)
+								{
+									int latU = (int) (users.get(j).getLatitude() * 1E6);
+									int lonU = (int) (users.get(j).getLongitude() * 1E6);
+									int latC = (int) (list.get(k).getLatitude() * 1E6);
+									int lonC = (int) (list.get(k).getLongitude() * 1E6);
+									
+									final int u = j;
+									if(latU == latC && lonU == lonC)
+									{
+										
+										
+										Runnable maketoast = new Runnable() {
+											
+											public void run() {
+												
+												Toast.makeText(context, users.get(u).getUserName()+" has found a cache!", 5000).show();
+									    		
+											}
+										};
+										
+										runOnUiThread(maketoast);
+										
+										
+									}
+								}
+							
+							
+							}
+						
+						
+					
+					}}, 0, 30000);
+					
 				
-//				try {
-//					
-//					Thread.sleep(60000);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-			}
-			
 			
 		}
 		
