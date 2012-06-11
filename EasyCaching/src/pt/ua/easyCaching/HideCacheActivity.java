@@ -1,5 +1,6 @@
 package pt.ua.easyCaching;
 
+import webService_driver.insert;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +31,7 @@ public class HideCacheActivity extends Activity {
 		
 		final String previous = getIntent().getExtras().getString("previous");
 		
+		
 		Button b = (Button) findViewById(R.id.button1);
 		final EditText e1 = (EditText) findViewById(R.id.editText7);
 		final EditText e2 = (EditText) findViewById(R.id.editText2);
@@ -38,6 +40,18 @@ public class HideCacheActivity extends Activity {
 		final EditText e5 = (EditText) findViewById(R.id.editText5);
 		final EditText e6 = (EditText) findViewById(R.id.editText6);
 		final EditText e7 = (EditText) findViewById(R.id.competition_id);
+		final TextView t7 = (TextView) findViewById(R.id.textView7);
+		if( previous.equals("user"))
+		{
+			e7.setVisibility(View.INVISIBLE);
+			t7.setVisibility(View.INVISIBLE);
+		}
+		else
+		{
+			e7.setVisibility(View.VISIBLE);
+			t7.setVisibility(View.VISIBLE);
+		}
+		
 		
 		
 		
@@ -75,7 +89,7 @@ public class HideCacheActivity extends Activity {
 			
 				String name,hint,description;
 				double terrain,difficulty,size,lat,lon;
-				int competition;
+				int competition,userID;
 				
 				name = e1.getEditableText().toString();
 				hint = e2.getEditableText().toString();
@@ -88,39 +102,47 @@ public class HideCacheActivity extends Activity {
 				competition = Integer.parseInt(e7.getText().toString());
 				
 				  
-				SQLiteDatabase db = openOrCreateDatabase("MyDB", MODE_PRIVATE, null);
-				 
-				Cursor c = db.rawQuery("SELECT IDCacheHidden FROM CacheHidden ORDER BY IDCacheHidden DESC LIMIT 1", null);
-				int cacheID,userID;
-				
+//				SQLiteDatabase db = openOrCreateDatabase("MyDB", MODE_PRIVATE, null);
+//				 
+//				Cursor c = db.rawQuery("SELECT IDCacheHidden FROM CacheHidden ORDER BY IDCacheHidden DESC LIMIT 1", null);
+//				int cacheID,userID;
+//				
+//				if(previous.equals("user"))
+//				{
+//					SharedPreferences settings = getSharedPreferences("MYPREFS", 0);
+//					userID = settings.getInt("userID", 0);
+//					
+//					if(c.getCount() >0)
+//					{
+//						c.moveToFirst();
+//						cacheID =1+ c.getInt(c.getColumnIndex("IDCacheHidden"));
+//					}
+//					else
+//						cacheID=1;
+//					
+//					db.execSQL("INSERT INTO CacheHidden VALUES ("+cacheID+",'"+name+"',"+lat+","+lon+","+userID+","+terrain+","+difficulty+","+size+",'"+hint+"','"+description+"');");
+//				}
+//				else
+//				{
+//					userID = 1;
+//				}
+//				c.close();
+//				db.close();
 				if(previous.equals("user"))
 				{
 					SharedPreferences settings = getSharedPreferences("MYPREFS", 0);
 					userID = settings.getInt("userID", 0);
-					
-					if(c.getCount() >0)
-					{
-						c.moveToFirst();
-						cacheID =1+ c.getInt(c.getColumnIndex("IDCacheHidden"));
-					}
-					else
-						cacheID=1;
-					
-					db.execSQL("INSERT INTO CacheHidden VALUES ("+cacheID+",'"+name+"',"+lat+","+lon+","+userID+","+terrain+","+difficulty+","+size+",'"+hint+"','"+description+"');");
 				}
 				else
-				{
-					userID = 13;
-				}
-				c.close();
-				db.close();
+					userID = 1;
 				
-				//ConnectWebService.createCache(name, description, hint, terrain, difficulty, size, competition, userID, lat, lon);
+				
+				insert.createCache(name, description, hint, terrain, difficulty, size, competition, userID, lat, lon);
 				
 				if(previous.equals("user"))
 					startActivity(new Intent(HideCacheActivity.this, MenuUserActivity.class));
-				else if(previous.equals("juri"))
-					startActivity(new Intent(HideCacheActivity.this, MenuJuriActivity.class));
+				else if(previous.equals("admin"))
+					startActivity(new Intent(HideCacheActivity.this, MenuAdminActivity.class));
 			}
 		});
 		

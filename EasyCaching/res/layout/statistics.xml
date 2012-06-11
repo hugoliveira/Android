@@ -2,6 +2,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+
+    <com.google.android.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/t_found1"
+        android:apiKey="0NQLpyu_nTFtMFHjgmOjilM_joYwGc08YGEvvdw"
+        android:clickable="true" />
+
+    <TextView
+        android:id="@+id/t_hidden2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="28dp"
+        android:text="text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/t_hidden1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/t_hidden2"
+        android:layout_alignBottom="@+id/t_hidden2"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="19dp"
+        android:text="Number of Caches Hidden:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/t_found1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/t_hidden1"
+        android:layout_alignLeft="@+id/t_hidden1"
+        android:text="Number of Caches Found:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/t_found2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/t_found1"
+        android:layout_alignBottom="@+id/t_found1"
+        android:layout_alignLeft="@+id/t_hidden2"
+        android:text="text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:visibility="visible" />
 
 </RelativeLayout>

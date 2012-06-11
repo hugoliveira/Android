@@ -2,6 +2,7 @@ package pt.ua.easyCaching;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,7 +43,15 @@ public class MenuUserActivity extends Activity implements OnClickListener {
 		}
 		
 		else if(v.getId() == R.id.statistics_button)
-			startActivity(new Intent(MenuUserActivity.this, StatisticsActivity.class));
+		{
+			SharedPreferences settings = getSharedPreferences("MYPREFS", 0);
+			int userID = settings.getInt("userID", 0);
+			Intent i = new Intent(MenuUserActivity.this,UserStatsActivity.class);
+			i.putExtra("userID", userID);
+			i.putExtra("competitionID", 1);
+			startActivity(i);
+		}
+			
 		
 		else if(v.getId() == R.id.competitions_button)
 		{

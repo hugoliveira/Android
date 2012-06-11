@@ -1,70 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:gravity="top" >
 
     <Button
-        android:id="@+id/login_user"
+        android:id="@+id/admin_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="70dp"
-        android:layout_marginLeft="30dp"
-        android:padding="15sp"
-        android:text="@string/user" />
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:text="Login as Admin" android:width="120dp"/>
 
     <Button
         android:id="@+id/login_juri"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/login_user"
-        android:layout_alignBottom="@+id/login_user"
+        android:layout_above="@+id/admin_button"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="32dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginRight="38dp"
         android:padding="15sp"
-        android:text="@string/juri" />
+        android:text="@string/juri" android:width="110dp"/>
 
     <Button
         android:id="@+id/register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/login_user"
+        android:layout_above="@+id/login_juri"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:clickable="true"
-        android:text="Register" />
+        android:text="Register" android:width="120dp"/>
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/register_button"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="26dp"
-        android:text="Password"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_centerHorizontal="true"
+        android:text="EasyCaching"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:typeface="serif" />
 
     <EditText
         android:id="@+id/pass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView1"
-        android:layout_alignBottom="@+id/textView1"
+        android:layout_above="@+id/register_button"
         android:layout_alignParentRight="true"
-        android:inputType="textPassword"
-        android:ems="10" />
+        android:layout_marginBottom="20dp"
+        android:ems="10"
+        android:inputType="textPassword" >
+
+        <requestFocus />
+    </EditText>
 
     <EditText
         android:id="@+id/user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView1"
+        android:layout_above="@+id/pass"
         android:layout_alignParentRight="true"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
+        android:ems="10" />
 
     <TextView
         android:id="@+id/textView2"
@@ -72,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/user"
         android:layout_alignBottom="@+id/user"
-        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/title"
         android:text="Username"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -85,12 +83,25 @@
         android:src="@drawable/compass2" />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imageView1"
-        android:layout_centerHorizontal="true"
-        android:text="EasyCaching"
-        android:textAppearance="?android:attr/textAppearanceLarge" android:typeface="serif"/>
+        android:layout_alignBaseline="@+id/pass"
+        android:layout_alignBottom="@+id/pass"
+        android:layout_alignLeft="@+id/textView2"
+        android:text="Password"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/login_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/login_juri"
+        android:layout_alignBottom="@+id/login_juri"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_marginLeft="22dp"
+        android:padding="15sp"
+        android:text="@string/user"
+        android:width="115dp" />
 
 </RelativeLayout>

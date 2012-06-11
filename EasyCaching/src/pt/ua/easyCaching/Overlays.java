@@ -5,7 +5,10 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.sax.StartElementListener;
 
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.Overlay;
@@ -20,6 +23,11 @@ public class Overlays extends ItemizedOverlay {
 		super(boundCenterBottom(defaultMarker));
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Overlays(Drawable defaultMarker, Context context) {
+		  super(boundCenterBottom(defaultMarker));
+		  mContext = context;
+		}
 
 	@Override
 	protected OverlayItem createItem(int i) {
@@ -55,16 +63,29 @@ public void removeAllOverlays()
 	@Override
 	protected boolean onTap(int index) {
 	  OverlayItem item = mOverlays.get(index);
-	  AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-	  dialog.setTitle(item.getTitle());
-	  dialog.setMessage(item.getSnippet());
-	  dialog.show();
+	  Intent i = null;
+	  SharedPreferences settings = mContext.getSharedPreferences("MYPREFS", 0);
+	  int competitionID = settings.getInt("competitionID", 1);
+	  
+	  if(item.getSnippet().equals("user"))
+	  {
+		  i = new Intent(mContext,UserStatsActivity.class);
+		  i.putExtra("userID", Integer.parseInt(item.getTitle()));
+		  i.putExtra("competitionID", competitionID);
+	  }
+	  else if(item.getSnippet().equals("cache"))
+	  {
+		  i = new Intent(mContext,ViewCacheActivity.class);
+		  i.putExtra("cacheID", Integer.parseInt(item.getTitle()));
+	  }
+	  
+	  mContext.startActivity(i);
+	  
+	  
+	  
 	  return true;
 	}
 	
-	public Overlays(Drawable defaultMarker, Context context) {
-		  super(boundCenterBottom(defaultMarker));
-		  mContext = context;
-		}
+	
 
 }

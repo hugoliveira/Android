@@ -128,8 +128,8 @@ public class insert {
 		SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 
 		request.addProperty("idUser", idUser);
-		request.addProperty("latitude", Double.toString(d));
-		request.addProperty("longitude", Double.toString(f));
+		request.addProperty("longitude", Double.toString(d));
+		request.addProperty("latitude", Double.toString(f));
 
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 				SoapEnvelope.VER11);

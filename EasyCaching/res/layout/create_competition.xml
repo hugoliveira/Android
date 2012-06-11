@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/t_cname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="39dp"
+        android:text="Name"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/e_cname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/t_cname"
+        android:layout_alignBottom="@+id/t_cname"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/t_cname"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/t_cplace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/e_cname"
+        android:layout_marginTop="46dp"
+        android:text="Place"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/e_cplace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/t_cplace"
+        android:layout_alignBottom="@+id/t_cplace"
+        android:layout_alignLeft="@+id/e_cname"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <DatePicker
+        android:id="@+id/datePicker1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/e_cplace"
+        android:layout_centerVertical="true" />
+
+    <Button
+        android:id="@+id/b_create_competition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/datePicker1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:text="Create Competition" android:clickable="true" android:width="200dp"/>
+
+</RelativeLayout>

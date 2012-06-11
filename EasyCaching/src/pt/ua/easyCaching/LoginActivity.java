@@ -29,6 +29,7 @@ public class LoginActivity extends Activity implements OnClickListener{
         Button userButton = (Button) findViewById(R.id.login_user);
         Button juriButton = (Button) findViewById(R.id.login_juri);
         Button registerButton = (Button) findViewById(R.id.register_button);
+        Button adminButton = (Button) findViewById(R.id.admin_button);
         
         username = (EditText) findViewById(R.id.user);
         password = (EditText) findViewById(R.id.pass);
@@ -36,6 +37,7 @@ public class LoginActivity extends Activity implements OnClickListener{
         registerButton.setOnClickListener(this);
         userButton.setOnClickListener(this);
         juriButton.setOnClickListener(this);
+        adminButton.setOnClickListener(this);
     }
     
     @Override
@@ -54,45 +56,9 @@ public class LoginActivity extends Activity implements OnClickListener{
     		
     		db.execSQL("PRAGMA foreign_keys = ON;");
     		db.execSQL("CREATE TABLE IF NOT EXISTS User (IDUser int PRIMARY KEY, Nome nvarchar(50),Password nvarchar(10));");
-    		db.execSQL("CREATE TABLE IF NOT EXISTS CacheHidden (IDCacheHidden int PRIMARY KEY,Name nvarchar(200),Lat float,Lon float,RefIDUser int NOT NULL,Terrain float,Difficulty float,CacheSize float,Hint nvarchar(100),Descricao nvarchar(200),FOREIGN KEY (RefIDUser) REFERENCES User(IDUser));");
-    		db.execSQL("CREATE TABLE IF NOT EXISTS CacheFound (IDCacheFound int PRIMARY KEY,Name nvarchar(200),Lat float,Lon float,RefIDUser int NOT NULL,Terrain float,Difficulty float,CacheSize float,Hint nvarchar(100),Descricao nvarchar(200),FOREIGN KEY (RefIDUser) REFERENCES User(IDUser));");
+    		//db.execSQL("CREATE TABLE IF NOT EXISTS CacheHidden (IDCacheHidden int PRIMARY KEY,Name nvarchar(200),Lat float,Lon float,RefIDUser int NOT NULL,Terrain float,Difficulty float,CacheSize float,Hint nvarchar(100),Descricao nvarchar(200),FOREIGN KEY (RefIDUser) REFERENCES User(IDUser));");
+    		//db.execSQL("CREATE TABLE IF NOT EXISTS CacheFound (IDCacheFound int PRIMARY KEY,Name nvarchar(200),Lat float,Lon float,RefIDUser int NOT NULL,Terrain float,Difficulty float,CacheSize float,Hint nvarchar(100),Descricao nvarchar(200),FOREIGN KEY (RefIDUser) REFERENCES User(IDUser));");
     				
-
-    				
-//    		Cursor c;
-//    		c = db.rawQuery("SELECT * FROM CacheHidden", null);
-//    		c.moveToFirst();
-//    		int j=1;
-//    		while(j<=c.getCount())
-//    		{
-//    			Log.d("ID", ""+c.getInt(c.getColumnIndex("IDCacheHidden")));
-//    			Log.d("UserID", ""+c.getInt(c.getColumnIndex("RefIDUser")));
-//    			Log.d("DB", c.getString(c.getColumnIndex("Name")));
-//    			Log.d("DB", c.getString(c.getColumnIndex("Hint")));
-//    			Log.d("DB", c.getString(c.getColumnIndex("Descricao")));
-//    			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Terrain")));
-//    			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Difficulty")));
-//    			Log.d("DB", ""+c.getFloat(c.getColumnIndex("CacheSize")));
-//    			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Lat")));
-//    			Log.d("DB", ""+c.getFloat(c.getColumnIndex("Lon")));
-//    			
-//    			j++;
-//    			c.moveToNext();
-//    		}
-//    		
-//    		c = db.rawQuery("SELECT * FROM User", null);
-//    		c.moveToFirst();
-//    		j=1;
-//    		while(j<=c.getCount())
-//    		{
-//    			Log.d("ID", ""+c.getInt(c.getColumnIndex("IDUser")));
-//    			Log.d("ID", c.getString(c.getColumnIndex("Nome")));
-//    			Log.d("ID", c.getString(c.getColumnIndex("Password")));
-//    			j++;
-//    			c.moveToNext();
-//    		}
-//    		c.close();
-//    		db.close();
     	}
     	return super.onOptionsItemSelected(item);
     }
@@ -121,7 +87,7 @@ public class LoginActivity extends Activity implements OnClickListener{
     	
     	if(v.getId() == R.id.login_user && valid)
     	{
-    		toast = Toast.makeText(LoginActivity.this, "Welcome "+username.getEditableText().toString()+"!", 2000);
+    		toast = Toast.makeText(LoginActivity.this, "Welcome "+username.getEditableText().toString()+"!", 3000);
     		toast.setGravity(Gravity.CENTER, 0, 0);
     		toast.show();
     		editor.putInt("userID", userID);
@@ -130,20 +96,27 @@ public class LoginActivity extends Activity implements OnClickListener{
     	}
     	else if(v.getId() == R.id.login_user && !valid)
     	{
-    		toast = Toast.makeText(LoginActivity.this, "Username or Password incorrect!", 2000);
+    		toast = Toast.makeText(LoginActivity.this, "Username or Password incorrect!", 3000);
     		toast.setGravity(Gravity.BOTTOM, 0, 0);
     		toast.show();
     	}
-    	else
+    	else if(v.getId() == R.id.login_juri)
     	{
-    		toast = Toast.makeText(LoginActivity.this, "Welcome juri!", 2000);
+    		toast = Toast.makeText(LoginActivity.this, "Welcome juri!", 3000);
     		toast.setGravity(Gravity.CENTER, 0, 0);
     		toast.show();
-    		startActivity(new Intent(LoginActivity.this, MenuJuriActivity.class));
+    		Intent intent = new Intent(LoginActivity.this,ViewCompetitionsActivity.class);
+    		intent.putExtra("previous", "juri");
+    		startActivity(intent);
     	}
-    	
-    	
-    	
+    	else if(v.getId() == R.id.admin_button)
+    	{
+    		toast = Toast.makeText(LoginActivity.this, "Welcome admin!", 3000);
+    		toast.setGravity(Gravity.CENTER, 0, 0);
+    		toast.show();
+    		startActivity(new Intent(LoginActivity.this, MenuAdminActivity.class));
+    	}
+
     	db.close();
     }
     

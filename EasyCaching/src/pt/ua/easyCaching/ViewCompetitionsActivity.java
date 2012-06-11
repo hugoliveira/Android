@@ -37,7 +37,7 @@ public class ViewCompetitionsActivity extends ListActivity {
 			competition_id[i] = list.get(i).getId();
 		}
 		final String previous = getIntent().getExtras().getString("previous");
-		this.setListAdapter(new ArrayAdapter<String>(this, R.layout.menu_user_competition, competition_name));
+		this.setListAdapter(new ArrayAdapter<String>(this, R.layout.competition_list, competition_name));
 
 		  ListView lv = this.getListView();
 		  lv.setTextFilterEnabled(true);
@@ -61,11 +61,7 @@ public class ViewCompetitionsActivity extends ListActivity {
 					i.putExtra("idCompetition", competition_id[(int) id]);
 					startActivity(i);
 		    	}
-		    
-
 		    }
-
-			
 		  });
 
 	}

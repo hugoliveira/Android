@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -44,16 +45,19 @@ public class MapCompetition extends MapActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.map_competition);
+		setContentView(R.layout.map);
 		
 		final Context context = MapCompetition.this;
-		view = (MapView) findViewById(R.id.map_competition);
+		view = (MapView) findViewById(R.id.map);
 		view.setBuiltInZoomControls(true);
 		
 		final int competitionID = getIntent().getExtras().getInt("idCompetition");
 		String previous = getIntent().getExtras().getString("previous");
 		
 		SharedPreferences settings = getSharedPreferences("MYPREFS", 0);
+		Editor editor = settings.edit();
+		editor.putInt("competitionID", competitionID);
+		editor.commit();
 		final int userID = settings.getInt("userID", 0);
 		final List<Overlay> mapOverlays = view.getOverlays();
 		final Overlays user = new Overlays(this.getResources().getDrawable(R.drawable.games), this);
@@ -65,11 +69,10 @@ public class MapCompetition extends MapActivity {
 		for(int i=0;i<list.size();i++)
 		{
 			p = new GeoPoint((int) (list.get(i).getLatitude()* 1E6),(int) (list.get(i).getLongitude()* 1E6));
-			overlayItem = new OverlayItem(p,"","");
+			overlayItem = new OverlayItem(p,""+list.get(i).getId(),"cache");
 			caches.addOverlay(overlayItem);
 		}
 		mapOverlays.add(caches);
-		
 		
 		if(previous.equals("user"))
 		{
@@ -108,11 +111,9 @@ public class MapCompetition extends MapActivity {
 					mapOverlays.remove(1);
 				}
 					
-					
 				user.addOverlay(overlayItem);
 				mapOverlays.add(user);
 		
-				
 				insert.updateCoordenadaByUserID(userID, arg0.getLatitude(), arg0.getLongitude());
 				
 				for(int i=0;i<list.size();i++)
@@ -121,11 +122,9 @@ public class MapCompetition extends MapActivity {
 					int latC = (int) (list.get(i).getLatitude() * 1E6);
 					int lonC = (int) (list.get(i).getLongitude() * 1E6);
 					
-					
 					if(lat == latC && lon == lonC)
 					{
-						
-						
+						insert.insertCacheFound(userID, list.get(i).getId());
 						Runnable maketoast = new Runnable() {
 							
 							public void run() {
@@ -137,14 +136,10 @@ public class MapCompetition extends MapActivity {
 						runOnUiThread(maketoast);
 					}
 				}
-		
 			}
 		};
+		
 			m.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, listener);
-			
-			
-			
-			
 		}
 		else if(previous.equals("juri"))
 		{
@@ -163,14 +158,11 @@ public class MapCompetition extends MapActivity {
 							mapOverlays.remove(1);
 						}
 							
-							
-							
-							
 							for(int i=0;i<users.size();i++)
 							{
 								
 								GeoPoint po = new GeoPoint((int) (users.get(i).getLatitude()* 1E6),(int) (users.get(i).getLongitude()* 1E6));
-								overlayItem = new OverlayItem(po,users.get(i).getUserName(),"");
+								overlayItem = new OverlayItem(po,""+users.get(i).getIdUser(),"user");
 								userC.addOverlay(overlayItem);
 							}
 							mapOverlays.add(userC);
@@ -189,8 +181,6 @@ public class MapCompetition extends MapActivity {
 									final int u = j;
 									if(latU == latC && lonU == lonC)
 									{
-										
-										
 										Runnable maketoast = new Runnable() {
 											
 											public void run() {
@@ -201,20 +191,10 @@ public class MapCompetition extends MapActivity {
 										};
 										
 										runOnUiThread(maketoast);
-										
-										
 									}
 								}
-							
-							
-							}
-						
-						
-					
+							}	
 					}}, 0, 30000);
-					
-				
-			
 		}
 		
 		

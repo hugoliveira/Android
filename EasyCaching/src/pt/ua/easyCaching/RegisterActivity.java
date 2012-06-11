@@ -1,5 +1,6 @@
 package pt.ua.easyCaching;
 
+import webService_driver.insert;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -40,7 +41,7 @@ public class RegisterActivity extends Activity {
 				if(c.getCount() >0)
 				{
 					
-					toast = Toast.makeText(RegisterActivity.this, "Username already taken!", 2000);
+					toast = Toast.makeText(RegisterActivity.this, "Username already taken!", 3000);
 					toast.setGravity(Gravity.BOTTOM, 0, 0);
 					toast.show();
 					
@@ -62,26 +63,13 @@ public class RegisterActivity extends Activity {
 					else
 						id=1;
 					
+					insert.insertUser(u);
 					db.execSQL("INSERT INTO User VALUES ("+id+",'"+u+"','"+p+"');");
 					
-					toast = Toast.makeText(RegisterActivity.this, "Registado com sucesso!", 2000);
+					toast = Toast.makeText(RegisterActivity.this, "Registado com sucesso!", 3000);
 					toast.setGravity(Gravity.CENTER, 0, 0);
 					toast.show();
 					
-					c = db.rawQuery("SELECT * FROM User", null);
-					
-					c.moveToFirst();
-					int j=1;
-					while(j<= c.getCount())
-					{
-						Log.d("ID", ""+c.getInt(c.getColumnIndex("IDUser")));
-						Log.d("DB", c.getString(c.getColumnIndex("Nome")));
-						Log.d("DB", c.getString(c.getColumnIndex("Password")));
-						j++;
-						c.moveToNext();
-					}
-					
-					//ConnectWebService.insertUser(u);
 				}
 				c.close();
 				db.close();
